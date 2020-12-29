@@ -12,18 +12,28 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@ToString(exclude = {"user", "item"})
 public class OrderDetail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String status;
+
+    private LocalDateTime arrivalDate;
+
+    private int quantity;
+
+    private double totalPrice;
+
     private LocalDateTime orderAt;
 
-    @ManyToOne
-    private User user; // user_id를 찾아가서 얻어옴
+    private LocalDateTime createdAt;
 
-    @ManyToOne
-    private Item item;
+    private String createdBy;
+
+    private LocalDateTime updatedAt;
+
+    private String updatedBy;
+
 }

@@ -3,30 +3,32 @@ package com.example.study.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.tomcat.jni.Local;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
 import java.time.LocalDateTime;
-import java.util.List;
 
-@Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Data
 @Entity
-public class Item {
+public class Partner {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
 
-    private String title;
+    private String status;
 
-    private int price;
+    private String address;
 
-    private String content;
+    private String callCenter;
 
-    private String brandName;
+    private String partnerNumber;
+
+    private String businessNumber;
+
+    private String ceoName;
 
     private LocalDateTime registeredAt;
 

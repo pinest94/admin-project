@@ -25,7 +25,6 @@ public class GetController {
     public User getParameter(User user) {
         System.out.println(user.getAccount());
         System.out.println(user.getEmail());
-        System.out.println(user.getPassword());
         return user;
     }
 }

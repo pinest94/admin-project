@@ -22,8 +22,8 @@ public class OrderDetailRepositoryTest extends StudyApplicationTests {
         orderDetail.setTotalPrice(900000);
         orderDetail.setStatus("WAITING");
 
-        orderDetail.setOrderGroupId(1L); // 장바구니
-        orderDetail.setItemId(1L); // 상품
+        //orderDetail.setOrderGroupId(1L); // 장바구니
+        // orderDetail.setItemId(1L); // 상품
 
         orderDetail.setCreatedAt(LocalDateTime.now());
         orderDetail.setCreatedBy("AdminServer");

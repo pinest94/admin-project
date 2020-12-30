@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -19,33 +18,39 @@ public class UserRepositoryTest extends StudyApplicationTests {
 
     @Test
     public void create() {
-        // String sql = insert into user (%s, %s, %d) value ( account, email, age); (X)
+        String account = "Test01";
+        String password = "Test01";
+        String status = "REGISTERED";
+        String email = "Test01@gmail.com";
+        String phoneNumber = "010-1234-5678";
+        LocalDateTime registeredAt = LocalDateTime.now();
+        LocalDateTime createdAt = LocalDateTime.now();
+        String createdBy = "AdminServer";
 
-        for(int i=13942; i<=1000000; i++) {
-            User user = new User();
-            String number = String.format("%07d", i);
-            user.setAccount("TestUser" + number);
-            user.setEmail("TestUser"+number+"@gmail.com");
-            user.setPhoneNumber("010-1111-1112");
-            user.setCreatedAt(LocalDateTime.now());
-            user.setCreatedBy("TestUser"+number);
+        User user = new User();
+        user.setAccount(account);
+        user.setPassword(password);
+        user.setStatus(status);
+        user.setEmail(email);
+        user.setPhoneNumber(phoneNumber);
+        user.setRegisteredAt(registeredAt);
+        user.setCreatedAt(createdAt);
+        user.setCreatedBy(createdBy);
 
-            userRepository.save(user);
-            // System.out.println("newUser : " + newUser);
-        }
-
+        User newUser = userRepository.save(user);
+        Assertions.assertEquals(newUser.getAccount(), account);
+        Assertions.assertEquals(newUser.getStatus(), status);
+        Assertions.assertEquals(newUser.getEmail(), email);
+        Assertions.assertEquals(newUser.getPhoneNumber(), phoneNumber);
     }
 
     @Test
     @Transactional
     public void read() {
-        // userRepository.findAll();
-        Optional<User> user = userRepository.findById(5L);
-//        user.ifPresent(selectUser->{
-//            selectUser.getOrderDetailList().stream().forEach(detail-> {
-//                System.out.println(detail.getItem());
-//            });
-//        });
+        User user1 = userRepository.findFirstByPhoneNumberOrderByIdDesc("010-1111-2222");
+        Assertions.assertNull(user1);
+        User user2 = userRepository.findFirstByPhoneNumberOrderByIdDesc("010-1234-5678");
+        Assertions.assertNotNull(user2);
     }
 
     @Test

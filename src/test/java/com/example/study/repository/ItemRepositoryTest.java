@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 public class ItemRepositoryTest  extends StudyApplicationTests {
@@ -17,12 +18,19 @@ public class ItemRepositoryTest  extends StudyApplicationTests {
     @Test
     public void create() {
         Item item = new Item();
-        item.setName("노트북");
+        item.setName("삼성 노트북");
+        item.setTitle("삼성 노트북 A100");
+        item.setStatus("UNREGISTERED");
         item.setPrice(100000);
-        item.setContent("삼성 노트북");
+        item.setContent("2019년형 삼성 노트북 A100");
+        item.setBrandName("삼성");
+        item.setCreatedAt(LocalDateTime.now());
+        item.setCreatedBy("Partner01");
+        item.setPartnerId(1L);
 
         Item newItem = itemRepository.save(item);
         Assertions.assertNotNull(newItem);
+        Assertions.assertEquals(newItem.getName(), "삼성 노트북");
     }
 
     @Test

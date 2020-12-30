@@ -18,24 +18,18 @@ public class UserRepositoryTest extends StudyApplicationTests {
 
     @Test
     public void create() {
-        String account = "Test01";
-        String password = "Test01";
+        String account = "Test03";
+        String password = "Test03";
         String status = "REGISTERED";
-        String email = "Test01@gmail.com";
-        String phoneNumber = "010-1234-5678";
-        LocalDateTime registeredAt = LocalDateTime.now();
-        LocalDateTime createdAt = LocalDateTime.now();
-        String createdBy = "AdminServer";
+        String email = "Test03@gmail.com";
+        String phoneNumber = "010-1233-5679";
 
-        User user = new User();
-        user.setAccount(account);
-        user.setPassword(password);
-        user.setStatus(status);
-        user.setEmail(email);
-        user.setPhoneNumber(phoneNumber);
-        user.setRegisteredAt(registeredAt);
-        user.setCreatedAt(createdAt);
-        user.setCreatedBy(createdBy);
+        User user = User.builder()
+                .account(account)
+                .password(password)
+                .status(status)
+                .email(email)
+                .phoneNumber(phoneNumber).build();
 
         User newUser = userRepository.save(user);
         Assertions.assertEquals(newUser.getAccount(), account);
@@ -72,12 +66,9 @@ public class UserRepositoryTest extends StudyApplicationTests {
 
     @Test
     public void update() {
-        Optional<User> user = userRepository.findById(29835L);
+        Optional<User> user = userRepository.findById(2L);
         user.ifPresent(selectUser->{
             selectUser.setAccount("PPPP");
-            selectUser.setUpdatedAt(LocalDateTime.now());
-            selectUser.setUpdatedBy("Admin");
-
             userRepository.save(selectUser);
         });
     }

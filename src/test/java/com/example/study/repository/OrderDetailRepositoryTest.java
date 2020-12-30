@@ -17,10 +17,20 @@ public class OrderDetailRepositoryTest extends StudyApplicationTests {
     public void create() {
         OrderDetail orderDetail = new OrderDetail();
 
-        orderDetail.setOrderAt(LocalDateTime.now());
+        orderDetail.setArrivalDate(LocalDateTime.now().plusDays(2));
+        orderDetail.setQuantity(1);
+        orderDetail.setTotalPrice(900000);
+        orderDetail.setStatus("WAITING");
+
+        orderDetail.setOrderGroupId(1L); // 장바구니
+        orderDetail.setItemId(1L); // 상품
+
+        orderDetail.setCreatedAt(LocalDateTime.now());
+        orderDetail.setCreatedBy("AdminServer");
 
         OrderDetail newOrderDetail = orderDetailRepository.save(orderDetail);
         Assertions.assertNotNull(newOrderDetail);
+        Assertions.assertEquals(newOrderDetail.getStatus(), "WAITING");
     }
 
 }

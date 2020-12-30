@@ -34,6 +34,8 @@ public class OrderGroup {
 
     private int totalQuantity;
 
+    private LocalDateTime orderAt; // 주문일자
+
     private LocalDateTime arrivalDate;
 
     private LocalDateTime createdAt;
@@ -43,5 +45,7 @@ public class OrderGroup {
     private LocalDateTime updatedAt;
 
     private String updatedBy;
+
+    private Long userId;
 
 }

@@ -1,6 +1,7 @@
 package com.example.study.controller;
 
 import com.example.study.model.User;
+import com.example.study.network.Header;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,5 +27,12 @@ public class GetController {
         System.out.println(user.getAccount());
         System.out.println(user.getEmail());
         return user;
+    }
+
+    @GetMapping("/header")
+    public Header getHeader() {
+
+        // {"resultCode": "OK", "description": "OK" }
+        return Header.builder().resultCode("OK").description("OK").build();
     }
 }

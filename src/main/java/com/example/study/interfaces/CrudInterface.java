@@ -2,13 +2,13 @@ package com.example.study.interfaces;
 
 import com.example.study.network.Header;
 
-public interface CrudInterface {
+public interface CrudInterface<Req, Res> {
 
-    Header create(); // todo request object 추가
+    Header<Res> create(Header<Req> req); // todo request object 추가
 
-    Header read(Long id); //
+    Header<Res> read(Long id); //
 
-    Header update();
+    Header<Res> update(Header<Req> req);
 
-    Header delete(Long id);
+    Header<Res> delete(Long id);
 }

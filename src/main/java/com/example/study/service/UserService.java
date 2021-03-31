@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 public class UserService implements CrudInterface<UserApiRequest, UserApiResponse> {
@@ -40,12 +41,40 @@ public class UserService implements CrudInterface<UserApiRequest, UserApiRespons
 
     @Override
     public Header<UserApiResponse> read(Long id) {
-        return null;
+        // 1. User 가져오기
+        Optional<User> optional = userRepository.findById(id);
+
+        // 2. 가져온 데이터 -> UserApiResponse return
+        return optional
+                .map(user -> response(user))
+                .orElseGet(()-> Header.ERROR("데이터 없음"));
     }
 
     @Override
-    public Header<UserApiResponse> update(Header<UserApiRequest> userApiRequest) {
-        return null;
+    public Header<UserApiResponse> update(Header<UserApiRequest> request) {
+
+        // 1. data
+        UserApiRequest userApiRequest = request.getData();
+
+        // 2. id -> user 찾기
+        Optional<User> optional = userRepository.findById(userApiRequest.getId());
+
+        return optional
+                .map(user -> {
+                             user.setAccount(userApiRequest.getAccount())
+                                     .setEmail(userApiRequest.getEmail())
+                                     .setPassword(userApiRequest.getPassword())
+                                     .setPhoneNumber(userApiRequest.getPhoneNumber())
+                                     .setStatus(userApiRequest.getStatus())
+                                     .setRegisteredAt(userApiRequest.getRegisteredAt())
+                                     .setUnregisteredAt(userApiRequest.getUnregisteredAt())
+                                     .setUpdatedAt(LocalDateTime.now());
+
+                    return user;
+                })
+                .map(user -> userRepository.save(user)) // 3. update
+                .map(user -> response(user))  // 4. userApiResponse
+                .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
     @Override
